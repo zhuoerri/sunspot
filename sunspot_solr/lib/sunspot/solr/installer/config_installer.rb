@@ -46,6 +46,15 @@ module Sunspot
           say("Copying #{file} => #{dest}")
           FileUtils.cp(file, dest)
 
+          # Also copy words.dic file for mmseg4j
+          FileUtils.mkdir_p(File.join(@config_path, '../dic'))
+          dest = File.expand_path(File.join(@config_path, '../dic/words.dic'))
+          unless File.exist?(dest)
+            file = File.expand_path(File.join(sunspot_config_path, '../dic/words.dic'))
+            say("Copying #{file} => #{dest}")
+            FileUtils.cp(file, dest)
+          end
+
         end
       end
     end
